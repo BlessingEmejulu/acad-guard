@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - AcadGuard</title>
+  
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background: linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .auth-card {
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .auth-logo {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 1.4rem;
+      margin: 0 auto 1rem auto;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    .demo-accounts-panel {
+      background-color: #F8FAFC;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .demo-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0.85rem;
+      margin-bottom: 0.5rem;
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: left;
+    }
+
+    .demo-btn:hover {
+      background-color: var(--primary-light);
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
+
+    .demo-btn:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="/" class="auth-logo">AG</a>
+        <h2 style="font-size:1.6rem; color:var(--text-main);">Welcome to AcadGuard</h2>
+        <p style="font-size:0.9rem; margin-top:0.35rem;">Sign in to access your academic dashboard</p>
+      </div>
+
+      <form id="login-form" onsubmit="handleFormLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="login-email" class="form-control" placeholder="name@example.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <div class="flex items-center justify-between" style="margin-bottom:0.5rem;">
+            <label class="form-label" style="margin-bottom:0;">Password</label>
+            <a href="#" onclick="showForgotPassword(event)" style="font-size:0.8rem; color:var(--primary);">Forgot password?</a>
+          </div>
+          <input type="password" id="login-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" id="login-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem; font-size:1rem; margin-top:0.5rem;">
+          <i data-lucide="log-in"></i> Sign In
+        </button>
+      </form>
+
+      <!-- 1-Click Demo Accounts (Zero Emojis) -->
+      <div class="demo-accounts-panel">
+        <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:0.6rem; letter-spacing:0.05em; display:flex; align-items:center; gap:0.35rem;">
+          <i data-lucide="zap" style="width:14px; height:14px; color:var(--primary);"></i>
+          <span>Instant Demo Logins</span>
+        </div>
+        
+        <button class="demo-btn" onclick="fillDemo('student@example.com', 'Student@12345')">
+          <span class="flex items-center gap-2"><i data-lucide="graduation-cap" style="width:16px; height:16px;"></i> Student Account</span>
+          <span style="font-size:0.75rem; color:var(--text-light);">student@example.com</span>
+        </button>
+        
+        <button class="demo-btn" onclick="fillDemo('supervisor@example.com', 'Supervisor@12345')">
+          <span class="flex items-center gap-2"><i data-lucide="briefcase" style="width:16px; height:16px;"></i> Supervisor Account</span>
+          <span style="font-size:0.75rem; color:var(--text-light);">supervisor@example.com</span>
+        </button>
+        
+        <button class="demo-btn" onclick="fillDemo('admin@example.com', 'Admin@12345')">
+          <span class="flex items-center gap-2"><i data-lucide="shield" style="width:16px; height:16px;"></i> Administrator Account</span>
+          <span style="font-size:0.75rem; color:var(--text-light);">admin@example.com</span>
+        </button>
+      </div>
+
+      <div style="text-align:center; margin-top:1.5rem; font-size:0.875rem; color:var(--text-muted);">
+        Don't have an account? <a href="/register" style="font-weight:600;">Register here</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/static/js/config.js"></script>
+  <script src="/static/js/components/toast.js"></script>
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/auth.js"></script>
+
+  <script>
+    if (window.lucide) window.lucide.createIcons();
+
+    function fillDemo(email, pass) {
+      document.getElementById('login-email').value = email;
+      document.getElementById('login-password').value = pass;
+      document.getElementById('login-submit-btn').click();
+    }
+
+    async function handleFormLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const pass = document.getElementById('login-password').value;
+      const btn = document.getElementById('login-submit-btn');
+
+      btn.disabled = true;
+      btn.innerHTML = `<div class="spinner"></div> Signing In...`;
+
+      try {
+        const user = await Auth.login(email, pass);
+        setTimeout(() => {
+          window.location.href = '/app';
+        }, 500);
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="log-in"></i> Sign In`;
+        if (window.lucide) window.lucide.createIcons();
+      }
+    }
+
+    function showForgotPassword(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      if (!email) {
+        Toast.info('Forgot Password', 'Please enter your email address in the field above first.');
+      } else {
+        Toast.success('Password Reset', `Password reset token dispatched to ${email} (Demo placeholder).`);
+      }
+    }
+  </script>
+</body>
+</html>

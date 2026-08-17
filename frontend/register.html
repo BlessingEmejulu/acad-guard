@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Account - AcadGuard</title>
+  
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background: linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1rem;
+      min-height: 100vh;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 540px;
+    }
+
+    .auth-card {
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .role-toggle-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .role-option {
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .role-option.active {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <div style="text-align: center; margin-bottom: 1.75rem;">
+        <a href="/" style="display:inline-flex; width:44px; height:44px; background:linear-gradient(135deg, var(--primary), var(--secondary)); border-radius:var(--radius-lg); align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:1.2rem; margin-bottom:0.75rem;">AG</a>
+        <h2 style="font-size:1.5rem; color:var(--text-main);">Create Institutional Account</h2>
+        <p style="font-size:0.875rem; margin-top:0.25rem;">Register to submit projects or supervise student research</p>
+      </div>
+
+      <!-- Role Selector -->
+      <div class="role-toggle-group">
+        <div id="role-student-btn" class="role-option active" onclick="setRole('student')">
+          <i data-lucide="graduation-cap"></i> Student
+        </div>
+        <div id="role-supervisor-btn" class="role-option" onclick="setRole('supervisor')">
+          <i data-lucide="briefcase"></i> Supervisor
+        </div>
+      </div>
+
+      <form id="register-form" onsubmit="handleRegister(event)">
+        <input type="hidden" id="reg-role" value="student">
+
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" id="reg-fullname" class="form-control" placeholder="e.g. Samuel Adebayo" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Institutional Email Address *</label>
+          <input type="email" id="reg-email" class="form-control" placeholder="s.adebayo@university.edu.ng" required>
+        </div>
+
+        <div class="grid grid-2 gap-3">
+          <div class="form-group">
+            <label class="form-label">Department *</label>
+            <select id="reg-department" class="form-control" required>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Software Engineering">Software Engineering</option>
+              <option value="Cyber Security">Cyber Security</option>
+              <option value="Information Technology">Information Technology</option>
+              <option value="Data Science">Data Science</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="reg-matric-group">
+            <label class="form-label">Matriculation Number *</label>
+            <input type="text" id="reg-matric" class="form-control" placeholder="e.g. CSC/2023/3012">
+          </div>
+
+          <div class="form-group" id="reg-staffid-group" style="display:none;">
+            <label class="form-label">Faculty Staff ID *</label>
+            <input type="text" id="reg-staffid" class="form-control" placeholder="e.g. STF/CSC/2021/045">
+          </div>
+        </div>
+
+        <div class="grid grid-2 gap-3">
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="text" id="reg-phone" class="form-control" placeholder="+234...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password *</label>
+            <input type="password" id="reg-password" class="form-control" placeholder="Min. 6 characters" required minlength="6">
+          </div>
+        </div>
+
+        <button type="submit" id="reg-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem; font-size:1rem; margin-top:0.75rem;">
+          <i data-lucide="user-plus"></i> Complete Registration
+        </button>
+      </form>
+
+      <div style="text-align:center; margin-top:1.5rem; font-size:0.875rem; color:var(--text-muted);">
+        Already have an account? <a href="/login" style="font-weight:600;">Sign in here</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/static/js/config.js"></script>
+  <script src="/static/js/components/toast.js"></script>
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/auth.js"></script>
+
+  <script>
+    if (window.lucide) window.lucide.createIcons();
+
+    function setRole(role) {
+      document.getElementById('reg-role').value = role;
+      const studentBtn = document.getElementById('role-student-btn');
+      const supBtn = document.getElementById('role-supervisor-btn');
+      const matricGroup = document.getElementById('reg-matric-group');
+      const staffGroup = document.getElementById('reg-staffid-group');
+
+      if (role === 'student') {
+        studentBtn.classList.add('active');
+        supBtn.classList.remove('active');
+        matricGroup.style.display = 'block';
+        staffGroup.style.display = 'none';
+      } else {
+        supBtn.classList.add('active');
+        studentBtn.classList.remove('active');
+        matricGroup.style.display = 'none';
+        staffGroup.style.display = 'block';
+      }
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      const role = document.getElementById('reg-role').value;
+      const payload = {
+        full_name: document.getElementById('reg-fullname').value,
+        email: document.getElementById('reg-email').value,
+        password: document.getElementById('reg-password').value,
+        role: role,
+        department: document.getElementById('reg-department').value,
+        matric_number: role === 'student' ? document.getElementById('reg-matric').value : null,
+        staff_id: role === 'supervisor' ? document.getElementById('reg-staffid').value : null,
+        phone: document.getElementById('reg-phone').value || null
+      };
+
+      const btn = document.getElementById('reg-submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = `<div class="spinner"></div> Creating Account...`;
+
+      try {
+        await Auth.register(payload);
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 1200);
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="user-plus"></i> Complete Registration`;
+        if (window.lucide) window.lucide.createIcons();
+      }
+    }
+  </script>
+</body>
+</html>

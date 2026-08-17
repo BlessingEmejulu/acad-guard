@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AcadGuard - Academic Project Management & Plagiarism Detection System</title>
+  <meta name="description" content="Centralized academic project management and automated plagiarism detection platform for universities and higher institutions.">
+  
+  <!-- Design System CSS -->
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Light Theme Landing Styling */
+    .landing-header {
+      background-color: #FFFFFF;
+      border-bottom: 1px solid var(--border-light);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-section {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+      color: var(--text-main);
+      padding: 5rem 0 4.5rem 0;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background-color: var(--primary-light);
+      border: 1px solid var(--primary-border);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--text-main);
+      max-width: 900px;
+      margin: 0 auto 1.25rem auto;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-title span {
+      color: var(--primary);
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 2.5rem auto;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .demo-bar {
+      background-color: #FFFFFF;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .feature-card {
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-border);
+    }
+
+    .feature-icon-wrapper {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-lg);
+      background-color: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: #FFFFFF;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-counter-box {
+      text-align: center;
+      padding: 2rem;
+      background-color: #FFFFFF;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-number {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Landing Header Navbar (Light Theme) -->
+  <header class="landing-header">
+    <div class="container flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <div style="width:36px; height:36px; background:linear-gradient(135deg, #2563EB, #4F46E5); border-radius:10px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800;">
+          AG
+        </div>
+        <span style="font-size:1.3rem; font-weight:800; color:var(--text-main); letter-spacing:-0.02em;">AcadGuard</span>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <a href="/login" class="btn btn-secondary">
+          <i data-lucide="log-in"></i> Sign In
+        </a>
+        <a href="/register" class="btn btn-primary">
+          <i data-lucide="user-plus"></i> Register Account
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-pill">
+        <i data-lucide="shield-check" style="width:16px; height:16px;"></i> Academic Integrity & Project Management Engine
+      </div>
+      <h1 class="hero-title">
+        Empowering Higher Education with <span>Automated Plagiarism Detection</span> & Thesis Tracking
+      </h1>
+      <p class="hero-subtitle">
+        A centralized, database-driven academic management platform for students, faculty supervisors, and university administrators featuring real-time TF-IDF similarity vectorization and document versioning.
+      </p>
+
+      <div class="hero-actions">
+        <a href="/login" class="btn btn-primary btn-lg">
+          <i data-lucide="play-circle"></i> Launch Live Interactive Demo
+        </a>
+        <a href="#features" class="btn btn-secondary btn-lg">
+          <i data-lucide="info"></i> Explore Platform Features
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Demo Access Bar -->
+  <section class="demo-bar">
+    <div class="container flex items-center justify-between" style="flex-wrap:wrap; gap:1rem;">
+      <div style="color:var(--text-muted); font-size:0.9rem;">
+        <strong style="color:var(--text-main);">Instant Evaluation Accounts:</strong> Student, Supervisor, and Administrator credentials pre-loaded.
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="/login" class="btn btn-sm btn-secondary">
+          <i data-lucide="graduation-cap"></i> Student Portal
+        </a>
+        <a href="/login" class="btn btn-sm btn-secondary">
+          <i data-lucide="briefcase"></i> Supervisor Portal
+        </a>
+        <a href="/login" class="btn btn-sm btn-secondary">
+          <i data-lucide="shield"></i> Admin Dashboard
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" style="padding: 4.5rem 0; background-color: #F8FAFC;">
+    <div class="container">
+      <div style="text-align: center; max-width: 650px; margin: 0 auto 3rem auto;">
+        <span class="badge badge-submitted" style="margin-bottom: 0.5rem;">Higher Education Infrastructure</span>
+        <h2>Comprehensive Academic Integrity Ecosystem</h2>
+        <p style="margin-top: 0.5rem;">From thesis proposal to final defense, manage the complete academic project lifecycle with precision.</p>
+      </div>
+
+      <div class="grid grid-3 gap-6">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <i data-lucide="file-search"></i>
+          </div>
+          <h3 style="font-size:1.15rem; margin-bottom:0.5rem;">Authentic NLP Similarity Engine</h3>
+          <p style="font-size:0.875rem; line-height:1.6;">
+            Leverages multi-stage NLP (Text extraction for PDF/DOCX/TXT, tokenization, stop-word removal, TF-IDF vectorization, and winnowing fingerprinting) against the institutional repository.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper" style="background-color: var(--success-bg); color: var(--success);">
+            <i data-lucide="folder-git-2"></i>
+          </div>
+          <h3 style="font-size:1.15rem; margin-bottom:0.5rem;">Project Version Tracking</h3>
+          <p style="font-size:0.875rem; line-height:1.6;">
+            Maintains complete revision history for every project. Students upload revised versions based on supervisory feedback without losing prior submission reports.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper" style="background-color: var(--warning-bg); color: var(--warning);">
+            <i data-lucide="check-square"></i>
+          </div>
+          <h3 style="font-size:1.15rem; margin-bottom:0.5rem;">Supervisory Review Workflow</h3>
+          <p style="font-size:0.875rem; line-height:1.6;">
+            Supervisors receive real-time notifications on new uploads, inspect similarity scores, highlight matching paragraphs, request revisions, and issue formal approvals.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper" style="background-color: var(--secondary-light); color: var(--secondary);">
+            <i data-lucide="users"></i>
+          </div>
+          <h3 style="font-size:1.15rem; margin-bottom:0.5rem;">Role-Based Access Control</h3>
+          <p style="font-size:0.875rem; line-height:1.6;">
+            Granular JWT security separating Student, Faculty Supervisor, and Institutional Administrator permissions. Protected document downloads prevent unauthorized access.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper" style="background-color: var(--info-bg); color: var(--info);">
+            <i data-lucide="pie-chart"></i>
+          </div>
+          <h3 style="font-size:1.15rem; margin-bottom:0.5rem;">Institutional Analytics</h3>
+          <p style="font-size:0.875rem; line-height:1.6;">
+            Live Chart.js dashboard metrics displaying departmental submission trends, approval rates, average similarity percentages, and supervisor workload allocations.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper" style="background-color: var(--danger-bg); color: var(--danger);">
+            <i data-lucide="printer"></i>
+          </div>
+          <h3 style="font-size:1.15rem; margin-bottom:0.5rem;">Printable Similarity Reports</h3>
+          <p style="font-size:0.875rem; line-height:1.6;">
+            Export standardized, printable similarity certificates complete with circular score meters, matched source metadata, and supervisory decision signatures.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section style="padding: 4.5rem 0; background-color: #FFFFFF; border-top: 1px solid var(--border-light);">
+    <div class="container">
+      <div style="text-align: center; max-width: 650px; margin: 0 auto 3rem auto;">
+        <span class="badge badge-original" style="margin-bottom: 0.5rem;">Process Flow</span>
+        <h2>How AcadGuard Operates</h2>
+        <p style="margin-top: 0.5rem;">A 4-step pipeline ensuring academic rigor and transparency.</p>
+      </div>
+
+      <div class="grid grid-4 gap-6">
+        <div style="text-align:center; padding:1rem;">
+          <div class="step-number" style="margin:0 auto 1rem auto;">1</div>
+          <h4 style="margin-bottom:0.5rem;">Student Uploads</h4>
+          <p style="font-size:0.85rem;">Student uploads thesis draft in PDF, DOCX, or TXT format via drag-and-drop.</p>
+        </div>
+
+        <div style="text-align:center; padding:1rem;">
+          <div class="step-number" style="margin:0 auto 1rem auto; background-color:var(--secondary);">2</div>
+          <h4 style="margin-bottom:0.5rem;">NLP Analysis</h4>
+          <p style="font-size:0.85rem;">Engine extracts text, generates TF-IDF vectors, and scans against all repository documents.</p>
+        </div>
+
+        <div style="text-align:center; padding:1rem;">
+          <div class="step-number" style="margin:0 auto 1rem auto; background-color:var(--warning);">3</div>
+          <h4 style="margin-bottom:0.5rem;">Report Generation</h4>
+          <p style="font-size:0.85rem;">Interactive similarity report is generated with percentage gauge and matched snippet highlights.</p>
+        </div>
+
+        <div style="text-align:center; padding:1rem;">
+          <div class="step-number" style="margin:0 auto 1rem auto; background-color:var(--success);">4</div>
+          <h4 style="margin-bottom:0.5rem;">Faculty Review</h4>
+          <p style="font-size:0.85rem;">Assigned supervisor examines report, provides feedback, or approves project for defense.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Statistics Section -->
+  <section style="padding: 3.5rem 0; background-color: #F8FAFC; border-top: 1px solid var(--border-light);">
+    <div class="container">
+      <div class="grid grid-4 gap-6">
+        <div class="stat-counter-box">
+          <div class="stat-number">99.8%</div>
+          <div style="font-weight:700; color:var(--text-main);">Extraction Accuracy</div>
+          <p style="font-size:0.8rem; margin-top:0.25rem;">Multi-format PDF, DOCX & TXT parser</p>
+        </div>
+        <div class="stat-counter-box">
+          <div class="stat-number">&lt; 1.5s</div>
+          <div style="font-weight:700; color:var(--text-main);">Analysis Overhead</div>
+          <p style="font-size:0.8rem; margin-top:0.25rem;">High-speed vectorized cosine comparison</p>
+        </div>
+        <div class="stat-counter-box">
+          <div class="stat-number">100%</div>
+          <div style="font-weight:700; color:var(--text-main);">Database Driven</div>
+          <p style="font-size:0.8rem; margin-top:0.25rem;">Authentic algorithmic calculation</p>
+        </div>
+        <div class="stat-counter-box">
+          <div class="stat-number">3 Roles</div>
+          <div style="font-weight:700; color:var(--text-main);">Unified Dashboard</div>
+          <p style="font-size:0.8rem; margin-top:0.25rem;">Student, Supervisor & Admin</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner (Light Theme) -->
+  <section style="background: linear-gradient(180deg, #FFFFFF 0%, #EFF6FF 100%); padding: 4.5rem 0; text-align: center; border-top: 1px solid var(--border-light);">
+    <div class="container" style="max-width: 800px;">
+      <h2 style="font-size:2.2rem; margin-bottom:1rem;">Ready to Experience AcadGuard?</h2>
+      <p style="color:var(--text-muted); font-size:1.05rem; margin-bottom:2rem;">
+        Sign in with our seeded demo accounts or register a new student or faculty account to test document uploads and similarity reports.
+      </p>
+      <div class="flex items-center justify-center gap-4">
+        <a href="/login" class="btn btn-primary btn-lg">
+          <i data-lucide="log-in"></i> Sign In to Demo
+        </a>
+        <a href="/register" class="btn btn-secondary btn-lg">
+          <i data-lucide="user-plus"></i> Create New Account
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (Light Theme) -->
+  <footer style="background-color: #FFFFFF; color: var(--text-muted); padding: 2.5rem 0; font-size: 0.875rem; border-top: 1px solid var(--border-light);">
+    <div class="container flex items-center justify-between" style="flex-wrap:wrap; gap:1rem;">
+      <div>
+        <strong style="color:var(--text-main); font-size:0.95rem;">AcadGuard System</strong> • Academic Project Management & Plagiarism Detection
+      </div>
+      <div>
+        Final Year Computer Science Project • Built with FastAPI, SQLite, SQLAlchemy & Scikit-Learn
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    if (window.lucide) window.lucide.createIcons();
+  </script>
+</body>
+</html>

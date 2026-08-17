@@ -1,0 +1,261 @@
+/* ==========================================================================
+   AcadGuard - Plagiarism Report & Similarity Meter Styling (Light Theme)
+   ========================================================================== */
+
+.report-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Plagiarism Score Hero Card - Light Theme */
+.score-hero-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.score-hero-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--primary), var(--secondary));
+}
+
+.score-info {
+  flex: 1;
+}
+
+.score-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.score-badge-tag.tag-original { background-color: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+.score-badge-tag.tag-low { background-color: var(--info-bg); color: var(--info); border: 1px solid var(--info-border); }
+.score-badge-tag.tag-moderate { background-color: var(--warning-bg); color: var(--warning); border: 1px solid var(--warning-border); }
+.score-badge-tag.tag-critical { background-color: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
+
+.report-project-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+.report-sub-meta {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.report-sub-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Circular Similarity Meter */
+.score-circle-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+}
+
+.score-svg {
+  width: 140px;
+  height: 140px;
+  transform: rotate(-90deg);
+}
+
+.score-bg-circle {
+  fill: none;
+  stroke: #E2E8F0;
+  stroke-width: 10;
+}
+
+.score-progress-circle {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 377;
+  stroke-dashoffset: 377;
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.score-progress-circle.color-original { stroke: var(--success); }
+.score-progress-circle.color-low { stroke: var(--info); }
+.score-progress-circle.color-moderate { stroke: var(--warning); }
+.score-progress-circle.color-critical { stroke: var(--danger); }
+
+.score-center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.score-percent-val {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1;
+}
+
+.score-percent-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+
+/* Meta Data Strip */
+.report-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.meta-box {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+}
+
+.meta-box-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.meta-box-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Matched Sources Cards */
+.match-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.match-card:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+}
+
+.match-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.match-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.match-source-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.match-score-pill {
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-weight: 800;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.match-score-pill.high { background-color: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
+.match-score-pill.moderate { background-color: var(--warning-bg); color: var(--warning); border: 1px solid var(--warning-border); }
+.match-score-pill.low { background-color: var(--info-bg); color: var(--info); border: 1px solid var(--info-border); }
+
+/* Matched Excerpts / Highlighting */
+.snippet-box {
+  background-color: #F8FAFC;
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 1rem 1.25rem;
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.snippet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.snippet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.snippet-item mark {
+  background-color: #FEF08A;
+  color: #713F12;
+  padding: 0.15rem 0.35rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .score-hero-card {
+    flex-direction: column-reverse;
+    gap: 1.5rem;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  .report-sub-meta {
+    justify-content: center;
+  }
+  .report-meta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
