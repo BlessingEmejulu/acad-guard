@@ -1,0 +1,20 @@
+flowchart TD
+    A([Compute TF-IDF Score S_tfidf & Jaccard Score S_jaccard]) --> B{S_jaccard > 0.60?}
+    
+    B -->|True: Verbatim Copy Priority| C["Hybrid Score = (0.35 * S_tfidf) + (0.65 * S_jaccard)"]
+    B -->|False: Conceptual Priority| D["Hybrid Score = (0.70 * S_tfidf) + (0.30 * S_jaccard)"]
+    
+    C --> E["Scale Score to Percentage (0.0 - 100.0%)"]
+    D --> E
+    
+    E --> F{Has Multiple Matching Corpus Docs?}
+    F -->|Yes| G["Aggregate Score = min(100.0, Top_Score + 0.10 * Sum(Secondary_Scores))"]
+    F -->|No| H["Overall Score = Top_Score"]
+    
+    G --> I{Overall Similarity Score Category}
+    H --> I
+    
+    I -->|0.0% to 19.9%| J["Category: Original"]
+    I -->|20.0% to 39.9%| K["Category: Low Similarity"]
+    I -->|40.0% to 59.9%| L["Category: Needs Review"]
+    I -->|60.0% to 100.0%| M["Category: Potential Plagiarism"]

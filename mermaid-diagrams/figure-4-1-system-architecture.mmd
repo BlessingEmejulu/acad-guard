@@ -1,0 +1,23 @@
+flowchart TD
+    subgraph Client ["Client Tier (Presentation Layer)"]
+        A1["Student Interface (Vanilla JS SPA / CSS3)"]
+        A2["Supervisor Interface (Queue / Review)"]
+        A3["Admin Interface (Chart.js / Analytics)"]
+    end
+
+    subgraph App ["Application Tier (FastAPI Framework)"]
+        B1["Uvicorn ASGI Web Server"]
+        B2["REST Routers (Auth, Projects, Submissions, Admin)"]
+        B3["Security Guards (PyJWT Bearer Token, Bcrypt)"]
+        B4["Document Extractor (PyMuPDF / Python-Docx)"]
+        B5["Plagiarism Engine (TF-IDF & Winnowing)"]
+    end
+
+    subgraph Data ["Data & Storage Tier"]
+        C1["SQLAlchemy 2.0 ORM Engine"]
+        C2[("SQLite Database (academic_integrity.db)")]
+        C3["File Storage (/uploads directory)"]
+    end
+
+    Client -->|HTTP REST Requests| App
+    App -->|ORM Queries| Data

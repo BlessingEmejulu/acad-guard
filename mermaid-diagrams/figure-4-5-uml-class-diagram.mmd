@@ -1,0 +1,84 @@
+classDiagram
+    class User {
+        +int id
+        +string full_name
+        +string email
+        +string password_hash
+        +string role
+        +string department
+        +string matric_number
+        +boolean is_active
+        +datetime created_at
+    }
+
+    class Supervisor {
+        +int id
+        +int user_id
+        +string staff_id
+        +string department
+        +string specialization
+        +int max_students
+    }
+
+    class Project {
+        +int id
+        +string title
+        +string description
+        +string category
+        +string department
+        +string academic_session
+        +int student_id
+        +int supervisor_id
+        +string status
+    }
+
+    class Submission {
+        +int id
+        +int project_id
+        +int version
+        +string original_filename
+        +string stored_filename
+        +string file_path
+        +string file_type
+        +bigint file_size
+        +text extracted_text
+        +string submission_status
+    }
+
+    class PlagiarismReport {
+        +int id
+        +int submission_id
+        +float similarity_score
+        +string result
+        +int matched_documents_count
+        +float processing_time
+        +int total_words
+        +int total_unique_words
+        +string review_status
+    }
+
+    class SimilarityMatch {
+        +int id
+        +int report_id
+        +int matched_submission_id
+        +float similarity_score
+        +text matched_text
+    }
+
+    class PlagiarismEngine {
+        +classify_similarity(score: float) string
+        +run_check(submission_id: int, db: Session) PlagiarismReport
+    }
+
+    class DocumentExtractor {
+        +extract_text_from_file(file_path: string, filename: string) Tuple
+    }
+
+    User "1" -- "0..1" Supervisor : profile
+    User "1" -- "0..*" Project : student_projects
+    Supervisor "1" -- "0..*" Project : supervised_projects
+    Project "1" -- "0..*" Submission : submissions
+    Submission "1" -- "0..1" PlagiarismReport : report
+    PlagiarismReport "1" -- "0..*" SimilarityMatch : matches
+    PlagiarismEngine ..> Submission : evaluates
+    PlagiarismEngine ..> DocumentExtractor : uses

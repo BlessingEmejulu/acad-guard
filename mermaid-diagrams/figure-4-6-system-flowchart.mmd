@@ -1,0 +1,22 @@
+flowchart TD
+    A([Start: Student Log In]) --> B[Input Email & Password]
+    B --> C{Valid Credentials?}
+    C -->|No| D[Display Auth Error Alert] --> B
+    C -->|Yes| E[Generate JWT & Load Dashboard]
+    E --> F[Select Create Project / Upload Draft]
+    F --> G[Upload Document File .pdf/.docx/.txt]
+    G --> H{File Size <= 25MB & Valid Format?}
+    H -->|No| I[Return 400 Validation Error] --> G
+    H -->|Yes| J[Save File to /uploads & Create Submission DB Record]
+    J --> K[Document Extractor: Parse Raw Text]
+    K --> L[Plagiarism Engine Pipeline: TF-IDF & Winnowing Fingerprints]
+    L --> M[Compute Hybrid Score & Extract Overlapping Snippets]
+    M --> N[Save Plagiarism Report & Trigger Student/Supervisor Notifications]
+    N --> O[Supervisor Reviews Submission & Plagiarism Report]
+    O --> P{Supervisor Approval Status}
+    P -->|Approved| Q[Set Project Status: Approved]
+    P -->|Revision Required| R[Set Status: Revision Required & Log Comments]
+    P -->|Rejected| S[Set Status: Rejected]
+    Q --> T([End Workflow])
+    R --> T
+    S --> T

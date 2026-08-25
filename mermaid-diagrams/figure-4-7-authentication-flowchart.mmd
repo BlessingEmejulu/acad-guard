@@ -1,0 +1,14 @@
+graph TD
+    A[Client HTTP Request] --> B[Extract Bearer Token]
+    B --> C{Token Present?}
+    C -->|No| D[401 Unauthorized]
+    C -->|Yes| E[Verify PyJWT Token]
+    E --> F{Token Valid?}
+    F -->|No| D
+    F -->|Yes| G[Fetch User from DB]
+    G --> H{User Active?}
+    H -->|No| D
+    H -->|Yes| I{Check Role Requirement}
+    I -->|No| J[403 Forbidden]
+    I -->|Yes| K[Inject Security Context]
+    K --> L[Execute API Route]

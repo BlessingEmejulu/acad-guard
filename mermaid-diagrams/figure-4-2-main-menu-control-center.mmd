@@ -1,0 +1,24 @@
+flowchart TD
+    Start([User Login]) --> Authenticate{Role Authentication}
+
+    Authenticate -->|Role: Student| StudentMenu["Student Control Center"]
+    StudentMenu --> S1["Dashboard Stats & Alerts"]
+    StudentMenu --> S2["Project Topic Registration"]
+    StudentMenu --> S3["Document Upload (.pdf, .docx, .txt)"]
+    StudentMenu --> S4["Interactive Similarity Report"]
+    StudentMenu --> S5["Supervisory Feedback History"]
+
+    Authenticate -->|Role: Supervisor| SupervisorMenu["Supervisor Control Center"]
+    SupervisorMenu --> V1["Supervision Queue & Stats"]
+    SupervisorMenu --> V2["Submission & Similarity Review"]
+    SupervisorMenu --> V3["Feedback & Status Assignment<br/>(Approved / Revision / Rejected)"]
+    SupervisorMenu --> V4["Assigned Student Roster"]
+
+    Authenticate -->|Role: Administrator| AdminMenu["Institutional Admin Control Center"]
+    AdminMenu --> A1["System Analytics (Chart.js Graphs)"]
+    AdminMenu --> A2["User CRUD Management"]
+    AdminMenu --> A3["Supervisor Allocation Matrix"]
+    AdminMenu --> A4["Global Master Explorer"]
+    AdminMenu --> A5["Bulk Plagiarism Re-check Engine"]
+    AdminMenu --> A6["Audit Log Inspector"]
+    AdminMenu --> A7["System Settings Configuration"]

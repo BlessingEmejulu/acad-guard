@@ -1,0 +1,15 @@
+graph TD
+    A[Target Submission ID] --> B[Extract Document Text]
+    B --> C[Clean and Normalize Text]
+    C --> D[Tokenize and Remove Stopwords]
+    D --> E[Query Database Corpus]
+    E --> F{Corpus Empty?}
+    F -->|Yes| G[Score 0.0 Result Original]
+    F -->|No| H[Compute TF-IDF Cosine Similarities]
+    H --> I[Generate Winnowing Fingerprints]
+    I --> J[Compute Jaccard Overlap]
+    J --> K[Calculate Hybrid Similarity Score]
+    K --> L[Extract Overlapping Snippets]
+    L --> M[Classify Integrity Category]
+    M --> N[Save Plagiarism Report in DB]
+    N --> O[Return Report JSON]

@@ -1,0 +1,34 @@
+sequenceDiagram
+    autonumber
+    actor Student
+    participant Frontend as Vanilla JS SPA
+    participant API as FastAPI Backend
+    participant Extractor as Document Extractor
+    participant Engine as Plagiarism Engine
+    participant DB as SQLite Database
+    actor Supervisor
+
+    Student->>Frontend: Select File & Submit Project Draft
+    Frontend->>API: POST /api/projects/{id}/submissions (Multipart Form)
+    API->>DB: Save Submission Record (Status: Processing)
+    API->>Extractor: extract_text_from_file(file_path)
+    Extractor-->>API: Extracted Text String
+    API->>Engine: run_check(submission_id, db)
+    Engine->>DB: Query Database Corpus Submissions
+    DB-->>Engine: Return Corpus Documents
+    Engine->>Engine: Calculate TF-IDF Cosine & Winnowing Fingerprints
+    Engine->>DB: Persist PlagiarismReport & SimilarityMatch
+    Engine->>DB: Insert Student & Supervisor Notifications
+    Engine-->>API: Return PlagiarismReport Object
+    API-->>Frontend: 201 Created (Submission & Report JSON)
+    Frontend-->>Student: Render Circular Meter & Report View
+    
+    Supervisor->>Frontend: Open Supervision Queue
+    Frontend->>API: GET /api/supervision/submissions
+    API-->>Frontend: Return Pending Submissions List
+    Supervisor->>Frontend: Inspect Draft & Plagiarism Score
+    Supervisor->>Frontend: Submit Review (Status: Approved, Feedback text)
+    Frontend->>API: POST /api/supervision/projects/{id}/feedback
+    API->>DB: Insert Feedback & Update Project Status (Approved)
+    API-->>Frontend: 200 OK Response
+    Frontend-->>Supervisor: Toast Notification "Review Submitted"

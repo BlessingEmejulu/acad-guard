@@ -1,0 +1,26 @@
+flowchart TD
+    AcadGuard["AcadGuard Central System"]
+
+    AcadGuard --> AuthSub["1. Authentication & Security Subsystem"]
+    AuthSub --> Auth1["Login & Credential Verification"]
+    AuthSub --> Auth2["Bcrypt Password Hashing"]
+    AuthSub --> Auth3["PyJWT Token Issuance & Verification"]
+    AuthSub --> Auth4["Role-Based Route Guards"]
+
+    AcadGuard --> ProjSub["2. Student & Project Subsystem"]
+    ProjSub --> Proj1["Project Registration & Metadata"]
+    ProjSub --> Proj2["Versioned Document Upload"]
+    ProjSub --> Proj3["Text Extraction Engine"]
+    ProjSub --> Proj4["Student Notification Feed"]
+
+    AcadGuard --> SupSub["3. Supervisory Review Subsystem"]
+    SupSub --> Sup1["Review Queue Management"]
+    SupSub --> Sup2["Plagiarism Report Inspector"]
+    SupSub --> Sup3["Timestamped Feedback Logging"]
+    SupSub --> Sup4["Project Approval Workflow"]
+
+    AcadGuard --> PlagSub["4. Plagiarism Engine & Admin Subsystem"]
+    PlagSub --> Plag1["TF-IDF Vectorizer & Cosine Similarity"]
+    PlagSub --> Plag2["Winnowing K-Gram Fingerprinter"]
+    PlagSub --> Plag3["Hybrid Score & Overlap Snippet Extractor"]
+    PlagSub --> Plag4["Admin Analytics & System Settings"]
